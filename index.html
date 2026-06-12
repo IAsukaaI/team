@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akatsuki | Akhis - Valorant Team</title>
-    <link rel="icon" type="image/png" href="assets/logo/logo.png">
     <style>
         :root {
             --bg-color: #0f0f11;
-            --container-bg: #1a1a1d;
+            --container-bg: rgba(26, 26, 29, 0.85); /* Leicht transparent für den Hintergrund */
             --primary-color: #df2029; /* Akatsuki / Valorant Red */
             --text-main: #f0f0f0;
             --text-muted: #a0a0a0;
@@ -16,6 +15,13 @@
 
         body {
             background-color: var(--bg-color);
+            /* Neue Hintergrund-Eigenschaften für die Tabs */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            transition: background-image 0.5s ease-in-out; /* Weicher Übergang zwischen den Bildern */
+            
             color: var(--text-main);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -32,6 +38,7 @@
             align-items: center;
             gap: 10px;
             background: var(--container-bg);
+            backdrop-filter: blur(10px);
             padding: 10px 15px;
             border-radius: 8px;
             border: 1px solid #333;
@@ -57,6 +64,9 @@
             font-size: 0.85rem;
             z-index: 1000;
             transition: color 0.3s ease;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 4px;
         }
 
         .footer-credit:hover {
@@ -68,6 +78,7 @@
             text-align: center;
             padding: 40px 20px 20px 20px;
             background-color: var(--container-bg);
+            backdrop-filter: blur(10px);
             border-bottom: 2px solid var(--primary-color);
         }
 
@@ -103,10 +114,12 @@
             margin: 40px auto;
             padding: 30px;
             background: var(--container-bg);
+            backdrop-filter: blur(10px); /* Verschwommener Hintergrund hinter der Box */
             border-radius: 8px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             animation: fadeIn 0.4s ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .tab-content.active {
@@ -170,13 +183,13 @@
         }
 
         .bio-box {
-            background: #222;
+            background: rgba(34, 34, 34, 0.8);
             padding: 20px;
             border-radius: 8px;
             border-left: 4px solid var(--primary-color);
             margin: 20px 0;
             text-align: left;
-            white-space: pre-line; /* Übernimmt Zeilenumbrüche aus dem Text */
+            white-space: pre-line;
             font-style: italic;
             color: #ddd;
         }
@@ -304,7 +317,7 @@ Im shit in Valo (Im playing it just for fun) Retired CS player.
             <div class="bio-box">
 lwk js a jack of all trades master of AIM
             </div>
-            <a href="https://tracker.gg/valorant/profile/riot/Kxzolas%23161/overview?platform=pc&playlist=competitive" target="_blank" class="btn-link">Valorant Tracker</a>
+            <a href="https://tracker.gg/valorant/profile/riot/Kxzolas%23EFN/overview?platform=pc&playlist=competitive" target="_blank" class="btn-link">Valorant Tracker</a>
         </section>
 
         <!-- NOTLIKEME TAB -->
@@ -322,7 +335,7 @@ i/m the 1 4 u
     </main>
 
     <script>
-        // Musik-Objekte für jeden Spieler und das Home-Tab erstellen
+        // Musik-Objekte
         const audioTracks = {
             'home': new Audio('https://files.catbox.moe/k8xtuc.mp3'),
             'asukaa': new Audio('https://files.catbox.moe/fhh9wv.mp3'),
@@ -333,12 +346,29 @@ i/m the 1 4 u
             'notlikeme': new Audio('https://files.catbox.moe/opzpkb.mp3')
         };
 
+        // Hintergrundbilder für jedes Tab konfigurieren
+        // Passe hier die Pfade zu deinen Bildern im assets-Ordner an
+        const bgImages = {
+            'home': "url('assets/backgrounds/home.jpg')",
+            'asukaa': "url('assets/backgrounds/asukaa.jpg')",
+            'ziegenmilch': "url('assets/backgrounds/ziegenmilch.jpg')",
+            'nyxblade': "url('assets/backgrounds/nyxblade.jpg')",
+            'dereine': "url('assets/backgrounds/dereine.jpg')",
+            'kxzolas': "url('assets/backgrounds/kxzolas.jpg')",
+            'notlikeme': "url('assets/backgrounds/notlikeme.jpg')"
+        };
+
         // Alle Tracks auf Loop setzen und anfängliche Lautstärke anwenden
         const initialVolume = document.getElementById('volume-slider').value;
         Object.values(audioTracks).forEach(audio => {
             audio.loop = true;
             audio.volume = initialVolume;
         });
+
+        // Initiale Background-Zuweisung für die Startseite ("Home")
+        if (bgImages['home']) {
+            document.body.style.backgroundImage = bgImages['home'];
+        }
 
         // Tab-Switch Logik
         function switchTab(tabId) {
@@ -356,11 +386,18 @@ i/m the 1 4 u
                 audio.currentTime = 0;
             });
 
-            // 4. Musik des ausgewählten Tabs abspielen (falls vorhanden)
+            // 4. Musik des ausgewählten Tabs abspielen
             if (audioTracks[tabId]) {
                 audioTracks[tabId].play().catch(error => {
                     console.log("Autoplay wurde vom Browser blockiert, bis der Nutzer mit der Seite interagiert.", error);
                 });
+            }
+
+            // 5. Neues Hintergrundbild setzen
+            if (bgImages[tabId]) {
+                document.body.style.backgroundImage = bgImages[tabId];
+            } else {
+                document.body.style.backgroundImage = "none";
             }
         }
 
