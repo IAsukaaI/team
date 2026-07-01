@@ -9,20 +9,19 @@
     <style>
         :root {
             --bg-color: #0f0f11;
-            --container-bg: rgba(26, 26, 29, 0.85); /* Transparent Background */
-            --primary-color: #df2029; /* Akatsuki / Valorant Red */
+            --container-bg: rgba(26, 26, 29, 0.85);
+            --primary-color: #df2029;
             --text-main: #f0f0f0;
             --text-muted: #a0a0a0;
         }
 
         body {
             background-color: var(--bg-color);
-            /* New Backgrounds */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
-            transition: background-image 0.5s ease-in-out; /* Smooth Transition */
+            transition: background-image 0.5s ease-in-out;
             
             color: var(--text-main);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -31,7 +30,6 @@
             overflow-x: hidden;
         }
 
-        /* Background Video */
         #bg-video {
             position: fixed;
             top: 0;
@@ -44,7 +42,6 @@
             pointer-events: none;
         }
 
-        /* Volume Bar */
         .volume-container {
             position: absolute;
             top: 20px;
@@ -69,7 +66,6 @@
             accent-color: var(--primary-color);
         }
 
-        /* Footer Credits (Bottom Left) */
         .footer-credit {
             position: fixed;
             bottom: 15px;
@@ -88,7 +84,6 @@
             color: var(--primary-color);
         }
 
-        /* Navigation */
         header {
             text-align: center;
             padding: 40px 20px 20px 20px;
@@ -122,7 +117,6 @@
             box-shadow: 0 0 10px rgba(223, 32, 41, 0.4);
         }
 
-        /* Page Content */
         .tab-content {
             display: none;
             max-width: 800px;
@@ -146,7 +140,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Home Tab */
         .team-logo {
             max-width: 250px;
             border-radius: 50%;
@@ -174,7 +167,6 @@
             font-size: 1.1rem;
         }
 
-        /* Player Tabs */
         .player-img {
             width: 180px;
             height: 180px;
@@ -267,7 +259,7 @@
         </section>
 
         <section id="asukaa" class="tab-content">
-            <img src="assets/pfp/asukaa.jpg" alt="Asukaa Profile" class="player-img" onerror="this.src='https://via.placeholder.com/180/222/df2029?text=A'">
+            <img src="assets/pfp/asukaa.gif" alt="Asukaa Profile" class="player-img" onerror="this.src='https://via.placeholder.com/180/222/df2029?text=A'">
             <h2 class="player-name">Asukaa</h2>
             <div class="player-location">📍 Germany</div>
             <div class="bio-box">
@@ -277,7 +269,7 @@ Glory to Mankind
 
 NieR Automata is such a Beautiful Game ngl.
 
-Praying for you🕯️O' great Yuno Gasai 💝
+Praying for you🕯️O' great 2B 💝
 
 (If you are a Goth Mommy please DM Me!!!)
             </div>
@@ -356,7 +348,6 @@ i/m the 1/4 u 🌹
     </main>
 
     <script>
-        // Audio Files
         const audioTracks = {
             'home': new Audio('https://files.catbox.moe/11id4k.mp3'),
             'asukaa': new Audio('https://files.catbox.moe/8u6t42.mp3'),
@@ -367,7 +358,6 @@ i/m the 1/4 u 🌹
             'notlikeme': new Audio('https://files.catbox.moe/opzpkb.mp3')
         };
 
-        // Custom Backgrounds
         const bgMedia = {
             'home': 'assets/backgrounds/home.jpg',
             'asukaa': 'https://files.catbox.moe/b1552e.mp4',
@@ -380,66 +370,54 @@ i/m the 1/4 u 🌹
 
         const bgVideo = document.getElementById('bg-video');
 
-        // Loop all Tracks & Setup Initial Volumes
         const initialVolume = document.getElementById('volume-slider').value;
         Object.values(audioTracks).forEach(audio => {
             audio.loop = true;
             audio.volume = initialVolume;
         });
-        bgVideo.volume = initialVolume; // Sets Video Volume
+        bgVideo.volume = initialVolume; // Setzt die Lautstärke des Videos beim Starten der Seite
 
-        // Initial Background ("Home")
         if (bgMedia['home']) {
             document.body.style.backgroundImage = `url('${bgMedia['home']}')`;
         }
 
-        // Tab-Switch Logic
         function switchTab(tabId) {
-            // Deactivate all tabs
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-tabs button').forEach(btn => btn.classList.remove('active'));
             
-            // Activate Target Tabs
             document.getElementById(tabId).classList.add('active');
             document.getElementById('btn-' + tabId).classList.add('active');
 
-            // Pause Music
             Object.values(audioTracks).forEach(audio => {
                 audio.pause();
                 audio.currentTime = 0;
             });
 
-            // Check Picture or Video Bg
             const mediaSource = bgMedia[tabId];
             const currentVolume = document.getElementById('volume-slider').value;
 
             if (mediaSource) {
-                // Check file Extension
                 if (mediaSource.endsWith('.mp4') || mediaSource.endsWith('.webm')) {
-                    document.body.style.backgroundImage = "none"; // CSS-Bild entfernen
+                    document.body.style.backgroundImage = "none"; 
                     
                     if (!bgVideo.src.endsWith(mediaSource)) {
                         bgVideo.src = mediaSource;
                     }
                     
-                    bgVideo.currentTime = 0; // Setzt das Video bei jedem Klick zurück an den Anfang
-                    bgVideo.style.display = "block"; // Video einblenden
+                    bgVideo.currentTime = 0; 
+                    bgVideo.style.display = "block"; 
                     
-                    // Activate Volume
                     bgVideo.muted = false;
                     bgVideo.volume = currentVolume;
                     
-                    // Play Video
                     bgVideo.play().catch(error => console.log("Video Play Error:", error));
                 } else {
-                    // Pic Tab
-                    bgVideo.style.display = "none"; // Fade Video
+                    bgVideo.style.display = "none"; 
                     bgVideo.pause();
-                    bgVideo.muted = true; // Mute Video
+                    bgVideo.muted = true; 
                     
                     document.body.style.backgroundImage = `url('${mediaSource}')`;
 
-                    // MP3 plays when no video is available
                     if (audioTracks[tabId]) {
                         audioTracks[tabId].play().catch(error => {
                             console.log("Autoplay wurde vom Browser blockiert.", error);
@@ -454,13 +432,10 @@ i/m the 1/4 u 🌹
             }
         }
 
-        // Volume Slider Logic
         function updateVolume(val) {
-            // Regelt die MP3-Lautstärke
             Object.values(audioTracks).forEach(audio => {
                 audio.volume = val;
             });
-            // Video Volume
             bgVideo.volume = val;
         }
     </script>
