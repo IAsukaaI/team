@@ -31,6 +31,19 @@
             overflow-x: hidden;
         }
 
+        /* Background Video */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+            display: none; /* Standardmäßig ausgeblendet */
+            pointer-events: none;
+        }
+
         /* Volume Bar */
         .volume-container {
             position: absolute;
@@ -222,13 +235,13 @@
 </head>
 <body>
 
-    <!-- Global Volume -->
+    <video id="bg-video" autoplay loop muted playsinline></video>
+
     <div class="volume-container">
         <label for="volume-slider">Volume:</label>
         <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.15" oninput="updateVolume(this.value)">
     </div>
 
-    <!-- Footer Credits Link -->
     <a href="https://asukaa.de" target="_blank" class="footer-credit">Website created by Asukaa</a>
 
     <header>
@@ -243,7 +256,6 @@
         </div>
     </header>
 
-    <!-- HOME TAB -->
     <main>
         <section id="home" class="tab-content active">
             <img src="assets/logo/logo.png" alt="Akatsuki Logo" class="team-logo">
@@ -254,7 +266,6 @@
             </p>
         </section>
 
-        <!-- ASUKAA TAB -->
         <section id="asukaa" class="tab-content">
             <img src="assets/pfp/asukaa.jpg" alt="Asukaa Profile" class="player-img" onerror="this.src='https://via.placeholder.com/180/222/df2029?text=A'">
             <h2 class="player-name">Asukaa</h2>
@@ -266,6 +277,8 @@ Glory to Mankind
 
 NieR Automata is such a Beautiful Game ngl.
 
+Praying for you🕯️O' great Yuno Gasai 💝
+
 (If you are a Goth Mommy please DM Me!!!)
             </div>
             <a href="https://tracker.gg/valorant/profile/riot/Asukaa%23ASU02/overview?platform=pc&playlist=competitive" target="_blank" class="btn-link">Valorant Tracker</a>
@@ -273,7 +286,6 @@ NieR Automata is such a Beautiful Game ngl.
             <a href="https://discord.com/users/818168096006996008" target="_blank" class="btn-link">Discord</a>
         </section>
 
-        <!-- ZIEGENMILCH069 TAB -->
         <section id="ziegenmilch" class="tab-content">
             <img src="assets/pfp/ziegenmilch.jpg" alt="Ziegenmilch069 Profile" class="player-img" onerror="this.src='https://via.placeholder.com/180/222/df2029?text=Z'">
             <h2 class="player-name">Ziegenmilch069</h2>
@@ -289,7 +301,6 @@ dont ask me to carry im ass
             <a href="https://discord.com/users/1514791154317529271" target="_blank" class="btn-link personal-site">Discord</a>
         </section>
 
-        <!-- NYXBLADE TAB -->
         <section id="nyxblade" class="tab-content">
             <img src="assets/pfp/nyxblade.jpg" alt="Nyxblade Profile" class="player-img" onerror="this.src='https://via.placeholder.com/180/222/df2029?text=N'">
             <h2 class="player-name">Nyxblade</h2>
@@ -305,7 +316,6 @@ Proverbs 4:23
             <a href="https://discord.com/users/1436327171143503922" target="_blank" class="btn-link personal-site">Discord</a>
         </section>
 
-        <!-- DER EINE TAB -->
         <section id="dereine" class="tab-content">
             <img src="assets/pfp/dereine.jpg" alt="Der Eine Profile" class="player-img" onerror="this.src='https://via.placeholder.com/180/222/df2029?text=DE'">
             <h2 class="player-name">Der Eine</h2>
@@ -317,7 +327,6 @@ Im shit in Valo (Im playing it just for fun) Retired CS player.
             <a href="https://discord.com/users/1156262552733483181" target="_blank" class="btn-link personal-site">Discord</a>
         </section>
 
-        <!-- KXZOLAS TAB -->
         <section id="kxzolas" class="tab-content">
             <img src="assets/pfp/kxzolas.jpg" alt="Kxzolas Profile" class="player-img" onerror="this.src='https://via.placeholder.com/180/222/df2029?text=K'">
             <h2 class="player-name">Kxzolas</h2>
@@ -332,7 +341,6 @@ Spread love Not hate (161)
             <a href="https://discord.com/users/946106812749463613" target="_blank" class="btn-link personal-site">Discord</a>
         </section>
 
-        <!-- NOTLIKEME TAB -->
         <section id="notlikeme" class="tab-content">
             <img src="assets/pfp/notlikeme.jpg" alt="notlikeme Profile" class="player-img" onerror="this.src='https://via.placeholder.com/180/222/df2029?text=NLM'">
             <h2 class="player-name">Notlikeme</h2>
@@ -348,10 +356,10 @@ i/m the 1/4 u 🌹
     </main>
 
     <script>
-        // Musik-Objects
+        // Audio Files
         const audioTracks = {
             'home': new Audio('https://files.catbox.moe/11id4k.mp3'),
-            'asukaa': new Audio('https://files.catbox.moe/qrbp19.mp3'),
+            'asukaa': new Audio('https://files.catbox.moe/8u6t42.mp3'),
             'ziegenmilch': new Audio('https://files.catbox.moe/l1248d.mp3'),
             'nyxblade': new Audio('https://files.catbox.moe/2c0dr8.mp3'),
             'dereine': new Audio('https://files.catbox.moe/drraaw.mp3'),
@@ -360,64 +368,100 @@ i/m the 1/4 u 🌹
         };
 
         // Custom Backgrounds
-        const bgImages = {
-            'home': "url('assets/backgrounds/home.jpg')",
-            'asukaa': "url('assets/backgrounds/asukaa.jpg')",
-            'ziegenmilch': "url('assets/backgrounds/ziegenmilch.jpg')",
-            'nyxblade': "url('assets/backgrounds/nyxblade.jpg')",
-            'dereine': "url('assets/backgrounds/dereine.jpg')",
-            'kxzolas': "url('assets/backgrounds/kxzolas.jpg')",
-            'notlikeme': "url('assets/backgrounds/notlikeme.jpg')"
+        const bgMedia = {
+            'home': 'assets/backgrounds/home.jpg',
+            'asukaa': 'https://files.catbox.moe/b1552e.mp4',
+            'ziegenmilch': 'assets/backgrounds/ziegenmilch.jpg',
+            'nyxblade': 'assets/backgrounds/nyxblade.jpg',
+            'dereine': 'assets/backgrounds/dereine.jpg',
+            'kxzolas': 'assets/backgrounds/kxzolas.jpg',
+            'notlikeme': 'assets/backgrounds/notlikeme.jpg'
         };
 
-        // Loop all Tracks
+        const bgVideo = document.getElementById('bg-video');
+
+        // Loop all Tracks & Setup Initial Volumes
         const initialVolume = document.getElementById('volume-slider').value;
         Object.values(audioTracks).forEach(audio => {
             audio.loop = true;
             audio.volume = initialVolume;
         });
+        bgVideo.volume = initialVolume; // Sets Video Volume
 
         // Initial Background ("Home")
-        if (bgImages['home']) {
-            document.body.style.backgroundImage = bgImages['home'];
+        if (bgMedia['home']) {
+            document.body.style.backgroundImage = `url('${bgMedia['home']}')`;
         }
 
         // Tab-Switch Logic
         function switchTab(tabId) {
-            // 1. Deactivate all Tabs
+            // Deactivate all tabs
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-tabs button').forEach(btn => btn.classList.remove('active'));
             
-            // 2. Activate Target Tabs
+            // Activate Target Tabs
             document.getElementById(tabId).classList.add('active');
             document.getElementById('btn-' + tabId).classList.add('active');
 
-            // 3. Pause Music
+            // Pause Music
             Object.values(audioTracks).forEach(audio => {
                 audio.pause();
                 audio.currentTime = 0;
             });
 
-            // 4. Play Music Selected Tab
-            if (audioTracks[tabId]) {
-                audioTracks[tabId].play().catch(error => {
-                    console.log("Autoplay wurde vom Browser blockiert, bis der Nutzer mit der Seite interagiert.", error);
-                });
-            }
+            // Check Picture or Video Bg
+            const mediaSource = bgMedia[tabId];
+            const currentVolume = document.getElementById('volume-slider').value;
 
-            // 5. Set new Background
-            if (bgImages[tabId]) {
-                document.body.style.backgroundImage = bgImages[tabId];
+            if (mediaSource) {
+                // Check file Extension
+                if (mediaSource.endsWith('.mp4') || mediaSource.endsWith('.webm')) {
+                    document.body.style.backgroundImage = "none"; // CSS-Bild entfernen
+                    
+                    if (!bgVideo.src.endsWith(mediaSource)) {
+                        bgVideo.src = mediaSource;
+                    }
+                    
+                    bgVideo.currentTime = 0; // Setzt das Video bei jedem Klick zurück an den Anfang
+                    bgVideo.style.display = "block"; // Video einblenden
+                    
+                    // Activate Volume
+                    bgVideo.muted = false;
+                    bgVideo.volume = currentVolume;
+                    
+                    // Play Video
+                    bgVideo.play().catch(error => console.log("Video Play Error:", error));
+                } else {
+                    // Pic Tab
+                    bgVideo.style.display = "none"; // Fade Video
+                    bgVideo.pause();
+                    bgVideo.muted = true; // Mute Video
+                    
+                    document.body.style.backgroundImage = `url('${mediaSource}')`;
+
+                    // MP3 plays when no video is available
+                    if (audioTracks[tabId]) {
+                        audioTracks[tabId].play().catch(error => {
+                            console.log("Autoplay wurde vom Browser blockiert.", error);
+                        });
+                    }
+                }
             } else {
                 document.body.style.backgroundImage = "none";
+                bgVideo.style.display = "none";
+                bgVideo.pause();
+                bgVideo.muted = true;
             }
         }
 
         // Volume Slider Logic
         function updateVolume(val) {
+            // Regelt die MP3-Lautstärke
             Object.values(audioTracks).forEach(audio => {
                 audio.volume = val;
             });
+            // Video Volume
+            bgVideo.volume = val;
         }
     </script>
 </body>
