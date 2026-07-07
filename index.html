@@ -39,7 +39,7 @@
             object-fit: cover;
             z-index: -1;
             display: none; 
-            pointer-events: none;
+            pointer-events: none; 
         }
 
         .volume-container {
@@ -123,7 +123,7 @@
             margin: 40px auto;
             padding: 30px;
             background: var(--container-bg);
-            backdrop-filter: blur(10px); 
+            backdrop-filter: blur(10px);
             border-radius: 8px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -259,7 +259,7 @@
         </section>
 
         <section id="asukaa" class="tab-content">
-            <img src="assets/pfp/asukaamain.jpg" alt="Asukaa Profile" class="player-img" onerror="this.src='https://via.placeholder.com/180/222/df2029?text=A'">
+            <img src="assets/pfp/asukaa.png" alt="Asukaa Profile" class="player-img" onerror="this.src='https://via.placeholder.com/180/222/df2029?text=A'">
             <h2 class="player-name">Asukaa</h2>
             <div class="player-location">📍 Germany</div>
             <div class="bio-box">Everything that lives is designed to end.
@@ -280,10 +280,9 @@ Praying for you🕯️O' great Yuno Gasai 💝
             <img src="assets/pfp/ziegenmilch.jpg" alt="Ziegenmilch069 Profile" class="player-img" onerror="this.src='https://via.placeholder.com/180/222/df2029?text=Z'">
             <h2 class="player-name">Ziegenmilch069</h2>
             <div class="player-location">📍 Germany</div>
-            <div class="bio-box">“Be the change that you wish to see in the world.”
+            <div class="bio-box">Be the change that you wish to see in the world.”
 reyna main
 dont ask me to carry im ass
-(text me if ur a twink or a girl)
 18 yrs old
             </div>
             <a href="https://tracker.gg/valorant/profile/riot/albanskisduo%23069/overview?platform=pc&playlist=competitive" target="_blank" class="btn-link">Valorant Tracker</a>
@@ -343,8 +342,8 @@ i/m the 1/4 u 🌹
     <script>
         const audioTracks = {
             'home': new Audio('https://files.catbox.moe/11id4k.mp3'),
-            'asukaa': new Audio('https://files.catbox.moe/8u6t42.mp3'),
-            'ziegenmilch': new Audio('https://files.catbox.moe/l1248d.mp3'),
+            'asukaa': new Audio('https://files.catbox.moe/1jc0ya.mp3'),
+            'ziegenmilch': new Audio('https://files.catbox.moe/el3aoq.mp3'),
             'nyxblade': new Audio('https://files.catbox.moe/2c0dr8.mp3'),
             'dereine': new Audio('https://files.catbox.moe/drraaw.mp3'),
             'kxzolas': new Audio('https://files.catbox.moe/8e7pkh.mp3'),
@@ -353,7 +352,7 @@ i/m the 1/4 u 🌹
 
         const bgMedia = {
             'home': 'assets/backgrounds/home.jpg',
-            'asukaa': 'https://files.catbox.moe/awbh4c.mp4',
+            'asukaa': 'https://files.catbox.moe/a1l9hg.mp4',
             'ziegenmilch': 'assets/backgrounds/ziegenmilch.jpg',
             'nyxblade': 'assets/backgrounds/nyxblade.jpg',
             'dereine': 'assets/backgrounds/dereine.jpg',
@@ -368,7 +367,6 @@ i/m the 1/4 u 🌹
             audio.loop = true;
             audio.volume = initialVolume;
         });
-        bgVideo.volume = initialVolume; // Setzt die Lautstärke des Videos beim Starten der Seite
 
         if (bgMedia['home']) {
             document.body.style.backgroundImage = `url('${bgMedia['home']}')`;
@@ -386,8 +384,13 @@ i/m the 1/4 u 🌹
                 audio.currentTime = 0;
             });
 
+            if (audioTracks[tabId]) {
+                audioTracks[tabId].play().catch(error => {
+                    console.log("Autoplay wurde vom Browser blockiert, bis der Nutzer mit der Seite interagiert.", error);
+                });
+            }
+
             const mediaSource = bgMedia[tabId];
-            const currentVolume = document.getElementById('volume-slider').value;
 
             if (mediaSource) {
                 if (mediaSource.endsWith('.mp4') || mediaSource.endsWith('.webm')) {
@@ -398,30 +401,18 @@ i/m the 1/4 u 🌹
                     }
                     
                     bgVideo.currentTime = 0; 
-                    bgVideo.style.display = "block"; 
-                    
-                    bgVideo.muted = false;
-                    bgVideo.volume = currentVolume;
-                    
+                    bgVideo.style.display = "block"; // Zeigt das Video-Element
                     bgVideo.play().catch(error => console.log("Video Play Error:", error));
                 } else {
                     bgVideo.style.display = "none"; 
                     bgVideo.pause();
-                    bgVideo.muted = true; 
                     
                     document.body.style.backgroundImage = `url('${mediaSource}')`;
-
-                    if (audioTracks[tabId]) {
-                        audioTracks[tabId].play().catch(error => {
-                            console.log("Autoplay wurde vom Browser blockiert.", error);
-                        });
-                    }
                 }
             } else {
                 document.body.style.backgroundImage = "none";
                 bgVideo.style.display = "none";
                 bgVideo.pause();
-                bgVideo.muted = true;
             }
         }
 
@@ -429,7 +420,6 @@ i/m the 1/4 u 🌹
             Object.values(audioTracks).forEach(audio => {
                 audio.volume = val;
             });
-            bgVideo.volume = val;
         }
     </script>
 </body>
